@@ -1,0 +1,5 @@
+package com.Redit.clone.Dto;
+
+public class AuthenticationResponse {
+
+}

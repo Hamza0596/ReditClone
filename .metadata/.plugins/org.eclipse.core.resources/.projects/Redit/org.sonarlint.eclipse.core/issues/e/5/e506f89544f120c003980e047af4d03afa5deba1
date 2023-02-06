@@ -1,0 +1,15 @@
+
+h
+java:S1128"7Remove this unused import 'com.Redit.clone.Model.User'.(¹˜üÑıÿÿÿÿHÅRMINORZ
+CODE_SMELL
+q
+java:S1128"@Remove this unused import 'com.Redit.clone.Repository.UserRepo'.(®¢ÍëüÿÿÿÿHÇRMINORZ
+CODE_SMELL
+…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ª©Æ¸HÂRMINORZ
+CODE_SMELL
+
+java:S1128"dRemove this unused import 'org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build'.(·¨şÃHÃRMINORZ
+CODE_SMELL
+Z
+java:S3740!"/Provide the parametrized type for this generic.(ºÉêjHÀRMAJORZ
+CODE_SMELL

@@ -1,0 +1,5 @@
+server:
+  port: 8080
+    key-store: classpath:springblog.jks
+    key-store-password: password
+    key-alias: springblog

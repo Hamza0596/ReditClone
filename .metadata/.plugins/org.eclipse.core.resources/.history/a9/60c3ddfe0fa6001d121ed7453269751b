@@ -1,0 +1,6 @@
+server:
+  port: 8443
+
+    key-store: classpath:myKeystore.jks
+    key-store-password: secret
+    key-alias: myKey

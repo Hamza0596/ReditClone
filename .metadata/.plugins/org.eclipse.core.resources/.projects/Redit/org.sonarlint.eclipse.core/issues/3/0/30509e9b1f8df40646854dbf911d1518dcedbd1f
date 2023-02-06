@@ -1,0 +1,17 @@
+
+„	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ó¹-H¤RMINORZ
+CODE_SMELL
+~	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÌ£ïûÿÿÿÿH¥RMINORZ
+CODE_SMELL
+œ
+java:S1128	"dRemove this unused import 'org.springframework.security.core.userdetails.UsernameNotFoundException'.(Í£Ö¶ùÿÿÿÿ8Â´ù»á0HÚRMINORZ
+CODE_SMELL
+Š
+java:S1128"WRemove this unused import 'com.Redit.clone.Service.ServiceImpl.UserDetailsServiceImpl'.(©óØÂ8ÜŞû»á0HäRMINORZ
+CODE_SMELL
+‰
+java:S1128"VRemove this unused import 'org.springframework.security.core.userdetails.UserDetails'.(ÊÁ¥8Â´ù»á0HØRMINORZ
+CODE_SMELL
+
+java:S1128"]Remove this unused import 'org.springframework.security.core.userdetails.UserDetailsService'.(¶…¥à8ÜŞû»á0HâRMINORZ
+CODE_SMELL

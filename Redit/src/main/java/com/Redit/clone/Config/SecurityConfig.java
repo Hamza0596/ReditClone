@@ -10,8 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.Redit.clone.security.JwtAuthenticationFilter;
+
+import lombok.AllArgsConstructor;
 
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -19,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
@@ -28,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.anyRequest()
 		.authenticated();
+		httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 		
 	}
 	

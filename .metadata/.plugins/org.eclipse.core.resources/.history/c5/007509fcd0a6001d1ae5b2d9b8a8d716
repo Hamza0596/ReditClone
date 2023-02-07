@@ -1,0 +1,24 @@
+package com.Redit.clone.Service.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Redit.clone.Dto.PostDto;
+import com.Redit.clone.Helpers.ModelMapperConverter;
+import com.Redit.clone.Model.Post;
+import com.Redit.clone.Repository.PostRepository;
+import com.Redit.clone.Service.PostService;
+
+@Service
+public class PostServiceImpl implements PostService{
+	@Autowired 
+	PostRepository postRepository;
+
+	@Override
+	public void createPost(PostDto postDto) {
+    Post newPost =ModelMapperConverter.map(postDto, Post.class);
+    System.out.println(newPost);
+    postRepository.save(newPost);
+	}
+
+}

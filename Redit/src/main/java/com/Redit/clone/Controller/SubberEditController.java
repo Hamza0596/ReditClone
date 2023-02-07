@@ -1,6 +1,10 @@
 package com.Redit.clone.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +20,27 @@ public class SubberEditController  {
 
 	@Autowired
 	SuberEdditService suberEdditService;
+	
 	@PostMapping()
 	public void creatSubberedit(@RequestBody SuberedditDto suberedditDto ) {
 		suberEdditService.saveSubbeEredit(suberedditDto);
 		
 	}
+	
+	
+	@GetMapping()
+	public List<SuberedditDto> getAllSuberEddit(){
+		return suberEdditService.getAllSberEddits();
+		
+	}
+	
+	@GetMapping("/{id}")
+	public SuberedditDto getSuberEdditById(@PathVariable Long id){
+		return suberEdditService.getSubbereditById(id);
+		
+	}
+	
+	
+	
+	
 }

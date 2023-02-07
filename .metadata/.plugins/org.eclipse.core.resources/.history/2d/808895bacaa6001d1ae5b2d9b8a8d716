@@ -1,0 +1,6 @@
+package com.Redit.clone.Service;
+
+public interface PostService {
+	public void createPost();
+
+}

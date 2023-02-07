@@ -1,0 +1,12 @@
+package com.Redit.clone.Service.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.Redit.clone.Repository.PostRepository;
+import com.Redit.clone.Service.PostService;
+
+public class PostServiceImpl implements PostService{
+	@Autowired 
+	PostRepository postRepository;
+
+}

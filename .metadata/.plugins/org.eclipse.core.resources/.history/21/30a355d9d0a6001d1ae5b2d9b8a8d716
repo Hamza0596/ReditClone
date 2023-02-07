@@ -1,0 +1,8 @@
+package com.Redit.clone.Service;
+
+import com.Redit.clone.Dto.PostDto;
+
+public interface PostService {
+	public void createPost(PostDto postDto);
+
+}

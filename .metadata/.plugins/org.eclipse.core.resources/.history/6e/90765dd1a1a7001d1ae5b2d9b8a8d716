@@ -1,0 +1,8 @@
+package com.Redit.clone.Service;
+
+import com.Redit.clone.Dto.CommentDto;
+
+public interface CommentService {
+	public CommentDto addComment(CommentDto commentDto)  ;
+
+}

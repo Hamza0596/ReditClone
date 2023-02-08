@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 public class Comment {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,7 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="postId" , referencedColumnName = "postId")
 	private Post post;
-	private Instant createdDate;
+	private Instant createdDate=Instant.now();
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="userId" , referencedColumnName = "id")
 	private User user;

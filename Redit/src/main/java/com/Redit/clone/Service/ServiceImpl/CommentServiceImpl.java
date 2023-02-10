@@ -2,7 +2,6 @@ package com.Redit.clone.Service.ServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,9 +58,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public List<CommentDto> getAllCommentsByPost(Long PostId) {
-		List<CommentDto>com= ModelMapperConverter.mapAll(commentRepo.findByPostPostId(PostId), CommentDto.class);
-		com.stream().forEach(x->x.setPostId(PostId));
-		return com;
+		return ModelMapperConverter.mapAll(commentRepo.findByPostPostId(PostId), CommentDto.class);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.Redit.clone.Model;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Entity;
@@ -19,15 +20,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Comment {
+public class Comment implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
 	private String  text;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="postId" , referencedColumnName = "postId")
 	private Post post;
 	private Instant createdDate=Instant.now();
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId" , referencedColumnName = "id")
 	private User user;
 }

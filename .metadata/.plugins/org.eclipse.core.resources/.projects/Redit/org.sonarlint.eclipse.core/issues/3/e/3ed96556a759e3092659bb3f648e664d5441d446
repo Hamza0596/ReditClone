@@ -1,6 +1,0 @@
-
-p
-java:S1874"DRemove this use of "WebSecurityConfigurerAdapter"; it is deprecated.(Ë¶Ï“H¿RMINORZ
-CODE_SMELL
-…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(†ˆÀ»H¾RMINORZ
-CODE_SMELL

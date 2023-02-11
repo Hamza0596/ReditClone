@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Redit.clone.Dto.PostDto;
 import com.Redit.clone.Dto.UserDto;
+import com.Redit.clone.Exceptions.UserNameNotFoundException;
 import com.Redit.clone.Helpers.ModelMapperConverter;
 import com.Redit.clone.Model.Post;
 import com.Redit.clone.Model.User;
@@ -25,7 +26,9 @@ public class PostServiceImpl implements PostService{
     
 	@Override
 	public PostDto createPost(PostDto postDto) {
-	Optional<User> user =userRepo.findById(postDto.getUser().getId());
+		System.out.println(postDto);
+	User user =userRepo.findById(postDto.getUser().getId()).orElseThrow(()->new UserNameNotFoundException("the user of this pos is not found"));
+	System.out.println(user);
 	UserDto userDto=ModelMapperConverter.map(user,UserDto.class);
 	postDto.setUser(userDto);
     Post newPost =ModelMapperConverter.map(postDto, Post.class);

@@ -12,6 +12,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Redit"/>
     <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.springframework.ide.eclipse.boot.launch.BootMavenSourcePathProvider"/>
     <stringAttribute key="process_factory_id" value="org.springframework.ide.eclipse.boot.launch.process.BootProcessFactory"/>
+    <booleanAttribute key="spring.boot.auto-connect" value="true"/>
     <booleanAttribute key="spring.boot.jmx.enable" value="true"/>
     <booleanAttribute key="spring.boot.lifecycle.enable" value="true"/>
     <stringAttribute key="spring.boot.lifecycle.termination.timeout" value="15000"/>

@@ -1,7 +1,0 @@
-package com.Redit.clone.Service.ServiceImpl;
-
-import com.Redit.clone.Service.PostService;
-
-public class PostServiceImpl implements PostService{
-
-}

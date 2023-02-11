@@ -1,9 +1,0 @@
-package com.Redit.clone.Service;
-
-import com.Redit.clone.Dto.CommentDto;
-import com.Redit.clone.Exceptions.UserNameNotFoundException;
-
-public interface CommentService {
-	public CommentDto addComment(CommentDto commentDto)   ;
-
-}

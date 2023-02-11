@@ -8,5 +8,6 @@ import com.Redit.clone.Model.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 	List <Comment> findByPostPostId(Long id);
+	List <Comment> findByUserId(Long id);
 
 }

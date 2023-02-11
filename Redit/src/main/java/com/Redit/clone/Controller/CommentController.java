@@ -30,7 +30,13 @@ public class CommentController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> getAllCommentForPost(@PathVariable Long id) {
-		return new ResponseEntity<Object>(commentService.getAllCommentsByPost(id), HttpStatus.OK);
+		return new ResponseEntity<Object>(commentService.getAllCommentsByPostId(id), HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("user/{id}")
+	public ResponseEntity<Object> getAllCommentForUser(@PathVariable Long id) {
+		return new ResponseEntity<Object>(commentService.getAllCommentsByUserId(id), HttpStatus.OK);
 		
 	}
 	

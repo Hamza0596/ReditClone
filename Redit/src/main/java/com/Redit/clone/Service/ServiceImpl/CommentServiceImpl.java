@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Redit.clone.Dto.CommentDto;
+import com.Redit.clone.Dto.UserDto;
 import com.Redit.clone.Exceptions.PostNotFoundException;
 import com.Redit.clone.Exceptions.UserNameNotFoundException;
 import com.Redit.clone.Helpers.ModelMapperConverter;
@@ -33,17 +34,13 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public CommentDto addComment(CommentDto commentDto)  {
-		System.out.println(commentDto);
-		User user = (userRepo.findByUserName(commentDto.getUserName())).orElseThrow(()->new UserNameNotFoundException("Utilisateur introuvale"));
-		Comment comment = ModelMapperConverter.map(commentDto, Comment.class);
-		Post post = postRepo.findById(commentDto.getPostId()).orElseThrow(()->new PostNotFoundException("post introuvale"));
-		comment.setUser(user);
-		comment.setPost(post);
+		User user = userRepo.findById(commentDto.getUser().getId()).orElseThrow(()->new UserNameNotFoundException("no user was found with this id"));
+		UserDto userDto= ModelMapperConverter.map(user, UserDto.class);
+		commentDto.setUser(userDto);
+		Comment comment=ModelMapperConverter.map(commentDto, Comment.class);
 		CommentDto returnedComment = ModelMapperConverter.map(commentRepo.save(comment), CommentDto.class);
-		returnedComment.setPostId(comment.getPost().getPostId());
-		returnedComment.setUserName(comment.getUser().getUserName());
-		String message= commentDto.getUserName()+" "+"commented in your post ";
-		this.sendCommentNotification(message, post.getUser(),comment.getUser());
+		String message= commentDto.getUser().getUserName()+" "+"commented in your post ";
+		this.sendCommentNotification(message, comment.getPost().getUser(),comment.getUser());
 		return returnedComment;
 
 	}
@@ -57,8 +54,14 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public List<CommentDto> getAllCommentsByPost(Long PostId) {
+	public List<CommentDto> getAllCommentsByPostId(Long PostId) {
+		
 		return ModelMapperConverter.mapAll(commentRepo.findByPostPostId(PostId), CommentDto.class);
+	}
+
+	@Override
+	public List<CommentDto> getAllCommentsByUserId(Long id) {
+		return ModelMapperConverter.mapAll(commentRepo.findByUserId(id), CommentDto.class);
 	}
 
 }

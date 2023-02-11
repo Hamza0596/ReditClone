@@ -12,4 +12,5 @@ public class SuberedditDto {
 	private String name;
 	private String description;
 	private Integer numberOfPosts ;
+	private UserDto user;
 }

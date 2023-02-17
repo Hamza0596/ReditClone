@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ import com.Redit.clone.Repository.UserRepo;
 import com.Redit.clone.Repository.VerificationTokenRepository;
 import com.Redit.clone.Service.authService;
 import com.Redit.clone.security.JwtProvider;
+
+import io.jsonwebtoken.Jwt;
 
 
 @Service
@@ -102,5 +105,15 @@ public class authServiceImpl implements authService{
     String token=jwtProvider.generateToken(auth);
     return new AuthenticationResponse(token,loginRequest.getUserName());
 	}
+	
+    public User getCurrentUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return userRepo.findByUserName(principal.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
+    }
+	
+	
+	
 
 }

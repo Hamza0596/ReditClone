@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VoteDto {
 	private VoteType voteType;
-	private Post post;
+	private PostDto post;
+	private UserDto user;
 
 }

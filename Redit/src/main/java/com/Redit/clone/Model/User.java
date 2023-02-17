@@ -21,6 +21,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name="Users")
 public class User {
+	
+	public User(Long id, String userName, String password) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
 	private String userName;
@@ -29,6 +38,11 @@ public class User {
 	private String email;
 	private Instant createdDate;
     private boolean enabled;
+    
+    
+	
+    
+    
     
     
 	

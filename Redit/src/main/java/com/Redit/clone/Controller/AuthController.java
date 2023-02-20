@@ -1,7 +1,8 @@
 package com.Redit.clone.Controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Redit.clone.Dto.AuthenticationResponse;
 import com.Redit.clone.Dto.LoginRequest;
+import com.Redit.clone.Dto.RefreshTokenRequest;
 import com.Redit.clone.Dto.UserDto;
-import com.Redit.clone.Model.User;
-import com.Redit.clone.Repository.UserRepo;
+import com.Redit.clone.Service.RefreshTokenService;
 import com.Redit.clone.Service.authService;
 
 @RequestMapping("api/auth")
@@ -23,14 +24,15 @@ import com.Redit.clone.Service.authService;
 public class AuthController {
 	@Autowired
 	authService authService;
-	
+	@Autowired
+	RefreshTokenService refreshTokenService;
 	
 
 	
 	@PostMapping("/signup")
 	public ResponseEntity<String> signUp(@RequestBody UserDto userDto) {
 		authService.signup(userDto);
-		return new ResponseEntity("UserRegistrationSuccesfuly", HttpStatus.OK);
+		return new ResponseEntity<String>("UserRegistrationSuccesfuly", HttpStatus.OK);
 		
 	}
 	
@@ -43,6 +45,18 @@ public class AuthController {
 	@PostMapping("/login")
 	public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
 		return authService.login(loginRequest);
+	}
+	
+	@PostMapping("refresh/token")
+	public AuthenticationResponse refreshTokens(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+		return authService.refreshToken(refreshTokenRequest);
+	}
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
+		refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
+		return new ResponseEntity<String>("Refresh token deleted successfuly", HttpStatus.OK);
+		
 	}
 
 }

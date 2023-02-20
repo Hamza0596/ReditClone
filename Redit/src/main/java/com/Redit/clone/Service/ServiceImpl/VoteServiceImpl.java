@@ -16,8 +16,7 @@ import com.Redit.clone.Model.VoteType;
 import com.Redit.clone.Repository.PostRepository;
 import com.Redit.clone.Repository.VoteRepository;
 import com.Redit.clone.Service.VoteService;
-import com.Redit.clone.Service.authService;
-import com.auth0.json.mgmt.users.User;
+
 
 @Service
 public class VoteServiceImpl implements VoteService{

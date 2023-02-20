@@ -2,7 +2,6 @@ package com.Redit.clone.security;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +9,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -26,6 +27,7 @@ public class JwtProvider {
 	
 	
 	private  KeyStore keyStore;
+	private Long jwtExpirationInMillis=3600000L;
 	
 	@PostConstruct
 	  public void init() {
@@ -46,6 +48,15 @@ public class JwtProvider {
 		org.springframework.security.core.userdetails.User principal=  (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 		return Jwts.builder()
 				.setSubject(principal.getUsername())
+				.setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
+				.signWith(getPrivateKey())
+				.compact();
+	}
+	
+	public String generateTokenWithUserName (String userName) {
+		return Jwts.builder()
+				.setSubject(userName)
+				.setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
 				.signWith(getPrivateKey())
 				.compact();
 	}
@@ -59,7 +70,8 @@ public class JwtProvider {
 	        }
 	    }
 	   
-	   public boolean validateToken(String jwt) {
+	   @SuppressWarnings("deprecation")
+	public boolean validateToken(String jwt) {
 	        parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
 	        return true;
 	    }
@@ -74,11 +86,16 @@ public class JwtProvider {
 	    }
 	    
 	    public String getUsernameFromJwt(String token) {
-	        Claims claims = parser()
+	        @SuppressWarnings("deprecation")
+			Claims claims = parser()
 	                .setSigningKey(getPublickey())
 	                .parseClaimsJws(token)
 	                .getBody();
 
 	        return claims.getSubject();
+	    }
+	    
+	    public Long getJwtExpirationInMillis() {
+	    	return jwtExpirationInMillis;
 	    }
 }

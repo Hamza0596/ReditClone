@@ -7,18 +7,16 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Redit.clone.Dto.AuthenticationResponse;
 import com.Redit.clone.Dto.LoginRequest;
+import com.Redit.clone.Dto.RefreshTokenRequest;
 import com.Redit.clone.Dto.UserDto;
 import com.Redit.clone.Exceptions.SpringRedditException;
 import com.Redit.clone.Model.NotificationEmail;
@@ -26,10 +24,9 @@ import com.Redit.clone.Model.User;
 import com.Redit.clone.Model.VerificationToken;
 import com.Redit.clone.Repository.UserRepo;
 import com.Redit.clone.Repository.VerificationTokenRepository;
+import com.Redit.clone.Service.RefreshTokenService;
 import com.Redit.clone.Service.authService;
 import com.Redit.clone.security.JwtProvider;
-
-import io.jsonwebtoken.Jwt;
 
 
 @Service
@@ -48,6 +45,8 @@ public class authServiceImpl implements authService{
 	MailServiceImpl mailServiceImpl;
 	@Autowired
 	AuthenticationManager authenticationManager;
+	@Autowired
+	RefreshTokenService refreshTokenService;
 	
 	@Autowired
 	JwtProvider jwtProvider;
@@ -103,7 +102,7 @@ public class authServiceImpl implements authService{
    org.springframework.security.core.Authentication auth=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));	
     SecurityContextHolder.getContext().setAuthentication(auth);
     String token=jwtProvider.generateToken(auth);
-    return new AuthenticationResponse(token,loginRequest.getUserName());
+    return new AuthenticationResponse(token,refreshTokenService.generateRefreshToken().getToken(),Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()),loginRequest.getUserName());
 	}
 	
     public User getCurrentUser() {
@@ -112,6 +111,19 @@ public class authServiceImpl implements authService{
         return userRepo.findByUserName(principal.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
     }
+
+	@Override
+	public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+
+		refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+		String token =jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUserName());
+		AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+		authenticationResponse.setAuthentificationToken(token);
+		authenticationResponse.setRefreshToken(refreshTokenRequest.getRefreshToken());
+		authenticationResponse.setExpiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
+		authenticationResponse.setUserName(refreshTokenRequest.getUserName());
+		return authenticationResponse;
+	}
 	
 	
 	

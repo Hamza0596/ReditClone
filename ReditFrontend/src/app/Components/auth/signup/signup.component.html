@@ -1,0 +1,43 @@
+
+<div class="register-section">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4>Register</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="signUpForm">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" [formControlName]="'email'">
+                                <span style="color: red;" *ngIf="!signUpForm.controls['email'].valid && signUpForm.controls['email'].touched">Please provide a valid email</span>
+
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">User Name</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" [formControlName]="'userName'">
+                                <span style="color: red;" *ngIf="!signUpForm.controls['userName'].valid && signUpForm.controls['userName'].touched">Please provide a valid username</span>
+
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" [formControlName]="'password'">
+                            <span style="color: red;" *ngIf="!signUpForm.controls['password'].valid && signUpForm.controls['password'].touched">Please provide a valid password</span>
+
+                        </div>
+                       
+                        <button class="btn btn-primary"  (click)="signup()" >Submit</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

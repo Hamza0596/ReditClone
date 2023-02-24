@@ -9,6 +9,8 @@ import com.Redit.clone.Model.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-	public Optional<User> findByUserName(String userName); 
+	public Optional<User> findByUserName(String userName);
+
+	public Optional<User> findByEmail(String email); 
 
 }

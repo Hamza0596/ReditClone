@@ -27,10 +27,10 @@ public class Subereddit {
 	private Long id;
 	private String name;
 	private String description;
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List <Post>Posts ;
 	private Instant createdDate;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId", referencedColumnName = "id")
     private User user;
 

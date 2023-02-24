@@ -14,12 +14,18 @@ public class GloblaExceptionHandler {
 	@ExceptionHandler(UserNameNotFoundException.class)
 	public ResponseEntity<?> handelResourceNotFoundException(UserNameNotFoundException exception  ){
 		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
-		return  new ResponseEntity(errorDetails,HttpStatus.NOT_FOUND);
+		return  new ResponseEntity(errorDetails,HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(PostNotFoundException.class)
 	public ResponseEntity<?> handelResourceNotFoundException(PostNotFoundException exception  ){
 		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
 		return  new ResponseEntity(errorDetails,HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(EmailAlredyExistException.class)
+	public ResponseEntity<?> handelResourceNotFoundException(EmailAlredyExistException exception  ){
+		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
+		return  new ResponseEntity(errorDetails,HttpStatus.CONFLICT);
 	}
 }

@@ -1,0 +1,46 @@
+<div class="login-section">
+    <div class="row justify-content-center">
+        <div class="col-10  col-sm-9 col-md-6 col-lg-4" >
+            <div class="card">
+                <div class="card-header" style="text-align: center">
+                    <h4>Login</h4>
+                </div>
+                <div class="card-body" >
+                    <form [formGroup]="loginForm">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="userHelp" formControlName="userName" autofocus>
+                            <span style="color: red;" *ngIf="!loginForm.controls['userName'].valid && loginForm.controls['userName'].touched">Please provide a valid username</span>
+
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" >
+                            <span style="color: red;" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">Please provide a valid password</span>
+
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" (click)="login()" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button>
+                            <span>New to SpringReddit? <a routerLink="/sign-up">SIGN UP</a></span>
+                        </div>
+
+                        <div  *ngIf='isError==true' style="margin-top: 15px;">
+                            <p style="color: red;" >
+                                Login Failed. Please check your credentials and try again.
+                            </p>   
+                        </div> 
+
+                       
+                        
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

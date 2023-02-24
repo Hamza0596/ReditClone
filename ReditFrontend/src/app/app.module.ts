@@ -7,6 +7,11 @@ import { HeaderComponent } from './Components/header/header.component';
 import { SignupComponent } from './Components/auth/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './Components/auth/login/login.component';
+import { HomePageComponent } from './Components/home-page/home-page.component';
+import { TokenInterceptor } from './Helpers/TokenInterceptor';
+
+
 
 
 @NgModule({
@@ -14,15 +19,32 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     AppComponent,
     HeaderComponent,
     SignupComponent,
+    LoginComponent,
+    HomePageComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+   
+  
+
+
+
+
+    
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

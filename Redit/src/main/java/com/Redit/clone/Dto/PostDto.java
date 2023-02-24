@@ -16,6 +16,8 @@ public class PostDto {
 	private Integer voteCount=0;
 	private int commentCount;
 	private String duration;
+	
+	
 	public PostDto(String posteName, String url, String description, SuberedditDto subereddit, UserDto user,
 			Integer voteCount, int commentCount, String duration) {
 		super();

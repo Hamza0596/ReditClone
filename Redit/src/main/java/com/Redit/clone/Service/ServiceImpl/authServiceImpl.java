@@ -18,6 +18,7 @@ import com.Redit.clone.Dto.AuthenticationResponse;
 import com.Redit.clone.Dto.LoginRequest;
 import com.Redit.clone.Dto.RefreshTokenRequest;
 import com.Redit.clone.Dto.UserDto;
+import com.Redit.clone.Exceptions.EmailAlredyExistException;
 import com.Redit.clone.Exceptions.SpringRedditException;
 import com.Redit.clone.Model.NotificationEmail;
 import com.Redit.clone.Model.User;
@@ -57,20 +58,23 @@ public class authServiceImpl implements authService{
 	@Override
 	@Transactional
 	public void signup(UserDto userDto) {
-        System.out.println(userDto.getPassword());
-        System.out.println(userDto.getEmail());
-        System.out.println(userDto.getUserName());
+      if(!userRepo.findByEmail(userDto.getEmail()).isPresent()) {
+    	  User user = User.builder().userName(userDto.getUserName())
+  				.email(userDto.getEmail())
+  				.password(passwordEncoder.encode("hello"))
+  				.createdDate(Instant.now())
+  				.enabled(false).build();
+  				userRepo.save(user);
+  				String token=generatVerificationToken( user);
+  				
+  				mailServiceImpl.sendMail(new NotificationEmail("Please Activate your account",user.getEmail(), "please click to the below url to activate your account: "+"http://localhost:8080/api/auth/accountVerification/"+token));
+  				
+      }
+      else {
+    	  throw new EmailAlredyExistException("Email alredy exists exception");
+      }
 
-		User user = User.builder().userName(userDto.getUserName())
-				.email(userDto.getEmail())
-				.password(passwordEncoder.encode("hello"))
-				.createdDate(Instant.now())
-				.enabled(false).build();
-				userRepo.save(user);
-				String token=generatVerificationToken( user);
-				
-				mailServiceImpl.sendMail(new NotificationEmail("Please Activate your account",user.getEmail(), "please click to the below url to activate your account: "+"http://localhost:8080/api/auth/accountVerification/"+token));
-				
+		
 				
 				
 	}

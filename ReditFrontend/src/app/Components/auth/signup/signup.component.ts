@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignUpRequestPayload } from 'src/app/Model/SignUpRequestPayload';
 import { AuthServiceService } from 'src/app/Services/auth-service.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +14,7 @@ import { AuthServiceService } from 'src/app/Services/auth-service.service';
 export class SignupComponent implements OnInit {
 signUpForm!: FormGroup;
 signUpRequestPayload !:SignUpRequestPayload;
-  constructor(private authServiceService :AuthServiceService) { }
+  constructor(private authServiceService :AuthServiceService, private  router : Router ) { }
 
   ngOnInit(): void {
 
@@ -25,9 +28,33 @@ signUpRequestPayload !:SignUpRequestPayload;
 signup(){
   
   this.signUpRequestPayload=this.signUpForm.value
-  console.log(this.signUpRequestPayload);
+  this.authServiceService.Signup(this.signUpRequestPayload).subscribe(data=>{
+   console.log(data);
+  this.router.navigate(['/login'],{ queryParams: { registered: 'true' } })
 
-  this.authServiceService.Signup(this.signUpRequestPayload).subscribe();
+  }, (error) => {
+      if(error.status==409){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+    
+        Toast.fire({
+          icon: 'error',
+          title: ' email already exists  !'
+        })
+      }
+          
+    
+
+  });
 
   
 }

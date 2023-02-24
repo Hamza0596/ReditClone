@@ -32,11 +32,11 @@ public class Post {
 	@Nullable
 	private String description;
 	private Integer voteCount;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId", referencedColumnName = "id")
 	private User user;
 	private Instant createdDate= Instant.now();
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="subId", referencedColumnName = "id")
 	private Subereddit subereddit;
 	

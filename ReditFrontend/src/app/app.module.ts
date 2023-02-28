@@ -10,6 +10,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './Components/auth/login/login.component';
 import { HomePageComponent } from './Components/home-page/home-page.component';
 import { TokenInterceptor } from './Helpers/TokenInterceptor';
+import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { PostTitleComponent } from './Components/HomePageSubComponents/post-title/post-title.component';
+import { VoteButtonComponent } from './Components/HomePageSubComponents/vote-button/vote-button.component';
+import { SideBarComponent } from './Components/HomePageSubComponents/side-bar/side-bar.component';
+import { SubredditSideBarComponent } from './Components/HomePageSubComponents/subreddit-side-bar/subreddit-side-bar.component'
+
 
 
 
@@ -21,6 +27,10 @@ import { TokenInterceptor } from './Helpers/TokenInterceptor';
     SignupComponent,
     LoginComponent,
     HomePageComponent,
+    PostTitleComponent,
+    VoteButtonComponent,
+    SideBarComponent,
+    SubredditSideBarComponent,
     
   ],
   imports: [
@@ -28,6 +38,7 @@ import { TokenInterceptor } from './Helpers/TokenInterceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
    
   
 

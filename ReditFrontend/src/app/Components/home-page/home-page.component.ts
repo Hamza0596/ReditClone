@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/Services/post.service';
+import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-home-page',
@@ -8,12 +10,14 @@ import { PostService } from 'src/app/Services/post.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private postService :PostService) { }
+
+
+
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(data=>{
-      console.log(data)
-    })
+    
   }
 
 

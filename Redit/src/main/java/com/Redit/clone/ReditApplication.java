@@ -19,7 +19,6 @@ import com.Redit.clone.Config.SwaggerConfiguration;
 
 @SpringBootApplication
 @EnableAsync
-@CrossOrigin
 public class ReditApplication {
 
 	public static void main(String[] args) {
@@ -30,7 +29,7 @@ public class ReditApplication {
 		return  new BCryptPasswordEncoder();
 	}
 	
-	 @Bean
+	   @Bean
 	    public CorsFilter corsFilter() {
 	    	final String ACAO = "Access-Control-Allow-Origin";
 	        CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -41,7 +40,7 @@ public class ReditApplication {
 	                "Access-Control- Request-Method", "Access-Control-Request-Headers"));
 	        corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization",
 	                ACAO, ACAO, "Access-Control-Allow-Credentials"));
-	        corsConfiguration.setAllowedMethods(Arrays.asList("GET","PATCH", "POST", "PUT", "DELETE", "OPTIONS"));
+	        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 	        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 	        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 	        return new CorsFilter(urlBasedCorsConfigurationSource);

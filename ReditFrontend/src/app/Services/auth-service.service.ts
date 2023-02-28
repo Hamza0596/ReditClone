@@ -6,7 +6,7 @@ import { Loginrequestpayload } from '../Model/Loginrequestpayload';
 import { LoginResponse } from '../Model/LoginResponse';
 import { SignUpRequestPayload } from '../Model/SignUpRequestPayload';
 import {LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 
 
@@ -37,10 +37,24 @@ login(loginrequestpayload:Loginrequestpayload): Observable<any> {
     })
   )
 }
+
+refreshToken() {
+  const refreshTokenPayload = {
+    refreshToken: this.getRefreshToken(),
+    username: this.getUserName()
+  }
+  return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/refresh/token',
+    refreshTokenPayload)
+    .pipe(tap(response => {
+      this.storage.set('authenticationToken', response.authentificationToken);
+      this.storage.set('expiresAt', response.expiresAt);
+    }));
+}
+
+
 getJwtToken(){
   return this.storage.get('authenticationToken');
 }
-
 getRefreshToken() {
   return this.storage.get('refreshToken');
 }

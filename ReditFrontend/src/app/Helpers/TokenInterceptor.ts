@@ -2,60 +2,72 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/internal/operators/catchError";
-import { switchMap } from "rxjs/operators";
+import { filter, switchMap, take } from "rxjs/operators";
 import { LoginResponse } from "../Model/LoginResponse";
 import { AuthServiceService } from "../Services/auth-service.service";
 @Injectable({
     providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor{
-    isTokenRefreshing = false;
-    refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-      constructor(private authService:AuthServiceService){}
-      
-      intercept(req: HttpRequest<any>,
-        next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authService.getJwtToken()) {
-            this.addToken(req, this.authService.getJwtToken());
+    private isRefreshing = false;
+    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  
+    constructor(private authenticationService: AuthServiceService) {
+    }
+  
+    intercept(httpRequest: HttpRequest<any>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/auth/login`)) {
+        return httpHandler.handle(httpRequest);
+      }
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/auth/signup`)) {
+        return httpHandler.handle(httpRequest);
+      }
+      this.authenticationService.refreshToken();
+      let token = this.authenticationService.getJwtToken();
+      let request = this.addToken(httpRequest, token);
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/refresh/token`)) {
+        token = this.authenticationService.getRefreshToken();
+        request = this.addToken(httpRequest, token);
+        return httpHandler.handle(request);
+      }
+      // @ts-ignore
+      return httpHandler.handle(request).pipe(catchError(error => {
+        if (error instanceof HttpErrorResponse && !httpRequest.url.includes('/login') && error.status === 401) {
+          return this.handle401Error(request, httpHandler);
         }
-
-        return next.handle(req).pipe(catchError(error => {
-            if (error instanceof HttpErrorResponse
-                && error.status === 403) {
-                return this.handleAuthErrors(req, next)  as Observable<HttpEvent<any>>;;
-            } else {
-                return throwError(error)  as Observable<HttpEvent<any>>;;
-            }
-         }));
+        return throwError(error);
+      }));
+    }
+  
+    private addToken = (request: HttpRequest<any>, token: string) => request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  
+    // tslint:disable-next-line:typedef
+    private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+      if (!this.isRefreshing) {
+        this.isRefreshing = true;
+        this.refreshTokenSubject.next(null);
+  
+        return this.authenticationService.refreshToken().pipe(
+          switchMap((token: any) => {
+            this.isRefreshing = false;
+            this.refreshTokenSubject.next(token.access_token);
+            return next.handle(this.addToken(request, token.access_token));
+          }));
+  
+      } else {
+        return this.refreshTokenSubject.pipe(
+          filter(token => token != null),
+          take(1),
+          switchMap(jwt => {
+            return next.handle(this.addToken(request, jwt));
+          }));
+      }
     }
 
-
-
-
-    private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) {
-        if (!this.isTokenRefreshing) {
-            this.isTokenRefreshing = true;
-            this.refreshTokenSubject.next(null);
-
-            return this.authService.getRefreshToken().pipe(
-                switchMap((refreshTokenResponse: LoginResponse) => {
-                    this.isTokenRefreshing = false;
-                    this.refreshTokenSubject.next(refreshTokenResponse.authentificationToken);
-                    return next.handle(this.addToken(req, refreshTokenResponse.authentificationToken));
-                })
-            )
-        }
-    }
-
-
-    private addToken(req: HttpRequest<any>, jwtToken: string) {
-        console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        console.log(jwtToken);
-        
-        return req.clone({
-            headers: req.headers.set('Authorization',
-                'Bearer ' + jwtToken)
-        });
-    }
-
+   
+ 
 }

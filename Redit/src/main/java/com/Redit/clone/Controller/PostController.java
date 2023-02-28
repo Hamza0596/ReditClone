@@ -1,7 +1,6 @@
 package com.Redit.clone.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Redit.clone.Dto.PostDto;
+import com.Redit.clone.Model.Post;
+import com.Redit.clone.Repository.PostRepository;
 import com.Redit.clone.Service.PostService;
 
 
@@ -22,6 +23,8 @@ import com.Redit.clone.Service.PostService;
 public class PostController {
 @Autowired
 PostService postService;
+@Autowired
+PostRepository postRepository;
 	
 @PostMapping()
 public ResponseEntity<Object> addPost(@RequestBody PostDto postDto) {
@@ -67,5 +70,15 @@ public List<PostDto> getAllPostByUserName(@PathVariable String name){
 	return postService.getByUserName(name);
 	
 }
+
+
+@GetMapping("get")
+public List<Post> get(){
+	return postRepository.findByUserNameAndPosteNameAndVoteCount("TALAN", "guit");
+	
+}
+
+
+
 
 }

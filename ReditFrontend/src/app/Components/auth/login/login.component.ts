@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Loginrequestpayload } from 'src/app/Model/Loginrequestpayload';
 import { LoginResponse } from 'src/app/Model/LoginResponse';
 import { AuthServiceService } from 'src/app/Services/auth-service.service';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authServiceService:AuthServiceService,private activatedRoute: ActivatedRoute) { }
+  constructor(private authServiceService:AuthServiceService,private activatedRoute: ActivatedRoute,private route :Router) { }
   loginForm!:FormGroup;
   loginrequestpayload!:Loginrequestpayload;
   loginResponse!: LoginResponse;
@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.authServiceService.login(this.loginForm.value).subscribe(data=>{
       this.isError=false;
+      this.route.navigateByUrl('');
       console.log(data);
     
     },(error)=>{

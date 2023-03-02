@@ -14,4 +14,8 @@ export class SubredditService {
   getAllSubreddits(): Observable<Array<any>> {
     return this.http.get<Array<any>>(`${this.apiUrl}/suberedit`);
   }
+
+  createSubreddit(subreddit :any){
+    return this.http.post(`${this.apiUrl}/suberedit`,subreddit);
+  }
 }

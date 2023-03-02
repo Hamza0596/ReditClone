@@ -3,6 +3,7 @@ package com.Redit.clone.Model;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Comment implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
 	private String  text;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name="postId" , referencedColumnName = "postId")
 	private Post post;
 	private Instant createdDate=Instant.now();

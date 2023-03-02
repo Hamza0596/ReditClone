@@ -14,4 +14,9 @@ export class PostService {
   getAllPosts(): Observable<any> {
     return this.httpClient.get(`${this.apiUrl}/post`);
   }
+
+
+  addPost(post:any):Observable<any> {
+return this.httpClient.post(`${this.apiUrl}/post`,post)
+  }
 }

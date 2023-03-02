@@ -14,7 +14,11 @@ import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { PostTitleComponent } from './Components/HomePageSubComponents/post-title/post-title.component';
 import { VoteButtonComponent } from './Components/HomePageSubComponents/vote-button/vote-button.component';
 import { SideBarComponent } from './Components/HomePageSubComponents/side-bar/side-bar.component';
-import { SubredditSideBarComponent } from './Components/HomePageSubComponents/subreddit-side-bar/subreddit-side-bar.component'
+import { SubredditSideBarComponent } from './Components/HomePageSubComponents/subreddit-side-bar/subreddit-side-bar.component';
+import { CreateSubredditComponent } from './Components/create-subreddit/create-subreddit.component';
+import { CreatePostComponent } from './Components/create-post/create-post.component';
+import { ListsubredditsComponent } from './Components/listsubreddits/listsubreddits.component';
+import { AuthInterceptor } from './Helpers/auth.interceptor';
 
 
 
@@ -31,6 +35,9 @@ import { SubredditSideBarComponent } from './Components/HomePageSubComponents/su
     VoteButtonComponent,
     SideBarComponent,
     SubredditSideBarComponent,
+    CreateSubredditComponent,
+    CreatePostComponent,
+    ListsubredditsComponent
     
   ],
   imports: [
@@ -52,6 +59,11 @@ import { SubredditSideBarComponent } from './Components/HomePageSubComponents/su
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     }
 

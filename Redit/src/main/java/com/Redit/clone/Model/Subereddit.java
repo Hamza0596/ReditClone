@@ -3,6 +3,7 @@ package com.Redit.clone.Model;
 import java.time.Instant;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,9 +28,9 @@ public class Subereddit {
 	private Long id;
 	private String name;
 	private String description;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
 	private List <Post>Posts ;
-	private Instant createdDate;
+	private Instant createdDate=Instant.now();
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId", referencedColumnName = "id")
     private User user;

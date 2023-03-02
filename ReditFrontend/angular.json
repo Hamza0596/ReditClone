@@ -33,7 +33,10 @@
 
 
             ],
-            "scripts": []
+            "scripts": [
+
+              
+            ]
           },
           "configurations": {
             "production": {

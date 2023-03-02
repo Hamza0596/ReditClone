@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public PostDto createPost(PostDto postDto) {
 		System.out.println(postDto);
-	User user =userRepo.findById(postDto.getUser().getId()).orElseThrow(()->new UserNameNotFoundException("the user of this pos is not found"));
+	User user =userRepo.findByUserName(postDto.getUser().getUserName()).orElseThrow(()->new UserNameNotFoundException("the user of this pos is not found"));
 	System.out.println(user);
 	Subereddit sub = subRepo.findById(postDto.getSubereddit().getId()).orElseThrow(()->new UserNameNotFoundException("waw"));
 	postDto.setSubereddit(ModelMapperConverter.map(sub, SuberedditDto.class));
@@ -52,7 +52,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<PostDto> getAllPost() {
-		return ModelMapperConverter.mapAll(postRepository.findAll(), PostDto.class);
+		return ModelMapperConverter.mapAll(postRepository.findAllByOrderByCreatedDateDesc(), PostDto.class);
 	}
 
 	@Override

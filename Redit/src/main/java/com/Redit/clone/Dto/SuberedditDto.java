@@ -17,6 +17,6 @@ public class SuberedditDto {
 	private String name;
 	private String description;
 	private List <PostDto>Posts ;
-	private Instant createdDate;	
+	private Instant createdDate= Instant.now();	
 	private UserDto user;
 }

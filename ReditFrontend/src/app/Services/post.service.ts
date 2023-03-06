@@ -19,4 +19,9 @@ export class PostService {
   addPost(post:any):Observable<any> {
 return this.httpClient.post(`${this.apiUrl}/post`,post)
   }
+
+  getPostById(id:number){
+    return this.httpClient.get(`${this.apiUrl}/post/${id}`);
+
+  }
 }

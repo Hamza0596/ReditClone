@@ -25,7 +25,7 @@
 
           Comments({{post.commentCount}})
         </a>
-        <button class="login" >
+        <button class="login" (click)="goToPostDetails(post.postId)" >
           Read Post
         </button>
       </span>

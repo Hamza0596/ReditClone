@@ -19,6 +19,7 @@ import { CreateSubredditComponent } from './Components/create-subreddit/create-s
 import { CreatePostComponent } from './Components/create-post/create-post.component';
 import { ListsubredditsComponent } from './Components/listsubreddits/listsubreddits.component';
 import { AuthInterceptor } from './Helpers/auth.interceptor';
+import { ViewPostComponent } from './Components/view-post/view-post.component';
 
 
 
@@ -37,7 +38,8 @@ import { AuthInterceptor } from './Helpers/auth.interceptor';
     SubredditSideBarComponent,
     CreateSubredditComponent,
     CreatePostComponent,
-    ListsubredditsComponent
+    ListsubredditsComponent,
+    ViewPostComponent
     
   ],
   imports: [

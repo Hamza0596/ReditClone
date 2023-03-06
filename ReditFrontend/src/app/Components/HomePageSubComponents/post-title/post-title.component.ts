@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-icons';
 import { PostService } from 'src/app/Services/post.service';
 
@@ -19,7 +20,7 @@ export class PostTitleComponent implements OnInit {
   posts$: Array<any> = [];
 
 
-  constructor(private postService :PostService) { }
+  constructor(private postService :PostService,private router : Router) { }
 
   ngOnInit(): void {
 
@@ -28,6 +29,11 @@ export class PostTitleComponent implements OnInit {
       this.posts$=data;
 
     })
+  }
+
+
+  goToPostDetails(id:number){
+    this.router.navigate([`/viewPost`, id])
   }
 
 }

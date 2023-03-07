@@ -16,8 +16,12 @@
             </a>
         </div>
         <div class="float-right">
+            <div  ngbDropdown class="float-right" *ngIf="isLoggedIn || isLoggedInFirstCheck">
+                <a routerLink="/userProfile" class="float-right sign-up mr-2">My Account</a>
+                <a routerLink="/login" (click)="logout()" class="float-right login mr-2">Logout</a>
+            </div>
                   
-            <div  ngbDropdown class="float-right">
+            <div  ngbDropdown class="float-right" *ngIf="isLoggedIn==false &&  isLoggedInFirstCheck==false ">
                 <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
                 <a routerLink="/login" class="float-right login mr-2">Login</a>
             </div>

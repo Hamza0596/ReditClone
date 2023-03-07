@@ -41,6 +41,12 @@ public class CommentController {
 	}
 	
 	
+	@GetMapping("user/name/{name}")
+	public ResponseEntity<Object> getAllCommentForUserByName(@PathVariable String name) {
+		return new ResponseEntity<Object>(commentService.getAllCommentsByUserName(name), HttpStatus.OK);
+		
+	}
+	
 	
 
 

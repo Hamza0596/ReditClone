@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentDto {
-	private Long id;
 	private PostDto post;
 	private Instant createdDate=Instant.now();
 	private String text;

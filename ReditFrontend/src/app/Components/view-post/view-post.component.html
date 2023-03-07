@@ -8,18 +8,18 @@
           </div>
           <div class="col-md-11">
             <span>
-              <span class="subreddit-text"><a class="post-url" href="">{{post.subereddit.name}}</a></span>
+              <span class="subreddit-text"><a class="post-url" href="">{{post?.subereddit?.name}}</a></span>
               <span> . Posted 
-                  <span> {{post.duration}} </span>
+                  <span> {{post?.duration}} </span>
                   by
-                <a *ngIf="post.user.userName === null" class="username" href="">Anonymous</a>
-                <a *ngIf="post.user.userName != null" class="username" href="">{{post.user.userName}}</a>
+                <a *ngIf="post?.user?.userName === null" class="username" href="">Anonymous</a>
+                <a *ngIf="post?.user.userName != null" class="username" href="">{{post?.user.userName}}</a>
               </span>                        
             </span>
             <hr />
-            <a routerLink="post.url" class="post-title">{{post.posteName}}</a>
+            <a routerLink="post.url" class="post-title">{{post?.posteName}}</a>
             <div>
-              <p class="post-text" [innerHtml]="post.description"></p>
+              <p class="post-text" [innerHtml]="post?.description"></p>
             </div>
 
             <div class="post-comment">

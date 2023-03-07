@@ -20,6 +20,7 @@ import { CreatePostComponent } from './Components/create-post/create-post.compon
 import { ListsubredditsComponent } from './Components/listsubreddits/listsubreddits.component';
 import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { ViewPostComponent } from './Components/view-post/view-post.component';
+import { UserProfileComponent } from './Components/auth/user-profile/user-profile.component';
 
 
 
@@ -39,7 +40,9 @@ import { ViewPostComponent } from './Components/view-post/view-post.component';
     CreateSubredditComponent,
     CreatePostComponent,
     ListsubredditsComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    UserProfileComponent,
+    
     
   ],
   imports: [
@@ -48,6 +51,7 @@ import { ViewPostComponent } from './Components/view-post/view-post.component';
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    
    
   
 

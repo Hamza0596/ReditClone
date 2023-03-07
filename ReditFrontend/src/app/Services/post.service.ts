@@ -24,4 +24,9 @@ return this.httpClient.post(`${this.apiUrl}/post`,post)
     return this.httpClient.get(`${this.apiUrl}/post/${id}`);
 
   }
+
+
+  getAllPostsByUser(userName:String):Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.apiUrl}/post/byUserName/${userName}`)
+  }
 }

@@ -22,6 +22,16 @@ export class TokenInterceptor implements HttpInterceptor{
       if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/auth/signup`)) {
         return httpHandler.handle(httpRequest);
       }
+
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post`)) {
+        return httpHandler.handle(httpRequest);
+      }
+      
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/suberedit`)) {
+        return httpHandler.handle(httpRequest);
+      }
+
+
       this.authenticationService.refreshToken();
       let token = this.authenticationService.getJwtToken();
       let request = this.addToken(httpRequest, token);

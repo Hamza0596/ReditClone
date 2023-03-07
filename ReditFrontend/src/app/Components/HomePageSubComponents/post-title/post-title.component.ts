@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-icons';
 import { PostService } from 'src/app/Services/post.service';
@@ -16,6 +16,9 @@ export class PostTitleComponent implements OnInit {
   faComments=faComments;
   upvoteColor!: string;
   downvoteColor!: string;
+
+  @Input()
+  posts!: any[];
 
   posts$: Array<any> = [];
 

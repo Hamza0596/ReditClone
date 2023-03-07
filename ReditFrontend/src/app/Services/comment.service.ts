@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommentService {
+  getAllCommentsByUser(name: string):Observable<any[]> {
+    return this.httpClient.get<any[]>(`http://localhost:8080/api/comment/user/name/${name}`);
+  }
 
   constructor(private httpClient : HttpClient) { }
 
@@ -14,6 +17,6 @@ export class CommentService {
   }
 
   postComment(commentPayload: any): Observable<any> {
-    return this.httpClient.post<any>('http://localhost:8080/api/comments/', commentPayload);
+    return this.httpClient.post<any>('http://localhost:8080/api/comment', commentPayload);
   }
 }

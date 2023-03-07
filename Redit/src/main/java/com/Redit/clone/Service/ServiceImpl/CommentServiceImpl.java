@@ -34,10 +34,12 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public CommentDto addComment(CommentDto commentDto)  {
-		User user = userRepo.findById(commentDto.getUser().getId()).orElseThrow(()->new UserNameNotFoundException("no user was found with this id"));
+		Post post = postRepo.findById(commentDto.getPost().getPostId()).orElseThrow(()-> new PostNotFoundException("post not found"));
+		User user = userRepo.findByUserName(commentDto.getUser().getUserName()).orElseThrow(()->new UserNameNotFoundException("no user was found with this name"));
 		UserDto userDto= ModelMapperConverter.map(user, UserDto.class);
 		commentDto.setUser(userDto);
 		Comment comment=ModelMapperConverter.map(commentDto, Comment.class);
+		comment.setPost(post);
 		CommentDto returnedComment = ModelMapperConverter.map(commentRepo.save(comment), CommentDto.class);
 		String message= commentDto.getUser().getUserName()+" "+"commented in your post ";
 		this.sendCommentNotification(message, comment.getPost().getUser(),comment.getUser());
@@ -56,12 +58,18 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public List<CommentDto> getAllCommentsByPostId(Long PostId) {
 		
-		return ModelMapperConverter.mapAll(commentRepo.findByPostPostId(PostId), CommentDto.class);
+		return ModelMapperConverter.mapAll(commentRepo.findByPostPostIdOrderByCreatedDateDesc(PostId), CommentDto.class);
 	}
 
 	@Override
 	public List<CommentDto> getAllCommentsByUserId(Long id) {
 		return ModelMapperConverter.mapAll(commentRepo.findByUserId(id), CommentDto.class);
+	}
+
+	@Override
+	public List<CommentDto> getAllCommentsByUserName(String name) {
+		// TODO Auto-generated method stub
+		return ModelMapperConverter.mapAll(commentRepo.findByUserUserName(name), CommentDto.class);
 	}
 
 }

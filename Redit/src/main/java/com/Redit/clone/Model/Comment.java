@@ -25,7 +25,7 @@ public class Comment implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
 	private String  text;
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
 	@JoinColumn(name="postId" , referencedColumnName = "postId")
 	private Post post;
 	private Instant createdDate=Instant.now();

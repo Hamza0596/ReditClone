@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
       this.isError=false;
       this.route.navigateByUrl('');
       console.log(data);
+      this.authServiceService.sendMessage(true);
     
     },(error)=>{
 

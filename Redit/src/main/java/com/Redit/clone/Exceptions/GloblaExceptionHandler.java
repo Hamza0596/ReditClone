@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GloblaExceptionHandler {
 	
 	@ExceptionHandler(UserNameNotFoundException.class)
-	public ResponseEntity<?> handelResourceNotFoundException(UserNameNotFoundException exception  ){
+	public ResponseEntity<Object> handelResourceNotFoundException(UserNameNotFoundException exception  ){
 		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
-		return  new ResponseEntity(errorDetails,HttpStatus.UNAUTHORIZED);
+		return  new ResponseEntity<Object>(errorDetails,HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(PostNotFoundException.class)
-	public ResponseEntity<?> handelResourceNotFoundException(PostNotFoundException exception  ){
+	public ResponseEntity<Object> handelResourceNotFoundException(PostNotFoundException exception  ){
 		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
-		return  new ResponseEntity(errorDetails,HttpStatus.NOT_FOUND);
+		return  new ResponseEntity<Object>(errorDetails,HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(EmailAlredyExistException.class)
-	public ResponseEntity<?> handelResourceNotFoundException(EmailAlredyExistException exception  ){
+	public ResponseEntity<Object> handelResourceNotFoundException(EmailAlredyExistException exception  ){
 		ErrorDetails  errorDetails = new ErrorDetails( new Date(), exception.getMessage(),exception.getMessage());
-		return  new ResponseEntity(errorDetails,HttpStatus.CONFLICT);
+		return  new ResponseEntity<Object>(errorDetails,HttpStatus.CONFLICT);
 	}
 }

@@ -3,7 +3,6 @@ package com.Redit.clone.Dto;
 import java.time.Instant;
 import java.util.List;
 
-import com.Redit.clone.Model.Post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,6 +13,9 @@ import { SubredditService } from 'src/app/Services/subreddit.service';
 export class CreatePostComponent implements OnInit {
   postForm!:FormGroup;
   subredditsList!:any;
+  selectedFile!: File;
+ 
+  imagePreview: any;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private subredditService :SubredditService, private postService:PostService, private router :Router ) { }
 
@@ -27,29 +30,36 @@ export class CreatePostComponent implements OnInit {
       description:new FormControl('',Validators.required),
       subereddit:new FormControl('',Validators.required),
       user:new FormControl({userName:this.storage.get('username')},Validators.required),
+      file:new FormControl('')
     });
   }
 
   createPost(){
+    const formData = new FormData();
+    formData.append('posteName', this.postForm.get('posteName')?.value);
+    formData.append('url', this.postForm.get('url')?.value);
+    formData.append('description', this.postForm.get('description')?.value);
+    formData.append('suberedditId', this.postForm.get('subereddit')?.value);
+    formData.append('userName', this.storage.get('username'));
+    formData.append('file', this.selectedFile);
 
-  const subredditValue = this.postForm.get('subereddit')?.value;
-  const userValue = this.postForm.get('user')?.value;
-  const valueToSubmit = {
-    posteName: this.postForm.get('posteName')?.value,
-    url: this.postForm.get('url')?.value,
-    description: this.postForm.get('description')?.value,
-    subereddit: { id: subredditValue },
-    user: userValue
-  }
-    
-    this.postService.addPost(valueToSubmit).subscribe(data=>{
+    this.postService.addPost(formData).subscribe(data=>{
       console.log(data)
       
       this.postForm.reset()
       this.router.navigateByUrl('')
     });
-    console.log(valueToSubmit);
+    console.log(formData);
     
+  }
+
+  onFileSelected(any: any) {
+    this.selectedFile = any.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string
+    };
+    reader.readAsDataURL(this.selectedFile);
   }
 
 }

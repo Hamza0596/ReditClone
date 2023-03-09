@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Redit.clone.Dto.SuberedditDto;
-import com.Redit.clone.Dto.UserDto;
 import com.Redit.clone.Exceptions.UserNameNotFoundException;
 import com.Redit.clone.Helpers.ModelMapperConverter;
 import com.Redit.clone.Model.Subereddit;

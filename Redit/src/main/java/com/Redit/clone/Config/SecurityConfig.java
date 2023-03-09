@@ -17,6 +17,7 @@ import com.Redit.clone.security.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
 
+@SuppressWarnings("deprecation")
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -35,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/api/auth/**")
 		.permitAll()
 		.antMatchers(HttpMethod.GET, "/api/post")
+        .permitAll()
+        .antMatchers(HttpMethod.GET, "/api/post/image/**")
         .permitAll()
         .antMatchers(HttpMethod.GET, "/api/suberedit")
         .permitAll()

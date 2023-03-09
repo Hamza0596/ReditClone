@@ -2,7 +2,6 @@ package com.Redit.clone.Dto;
 
 import java.time.Instant;
 
-import com.Redit.clone.Model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

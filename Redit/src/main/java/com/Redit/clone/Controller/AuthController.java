@@ -30,9 +30,9 @@ public class AuthController {
 
 	
 	@PostMapping("/signup")
-	public ResponseEntity signUp(@RequestBody UserDto userDto) {
+	public ResponseEntity<String> signUp(@RequestBody UserDto userDto) {
 		authService.signup(userDto);
-		return new ResponseEntity( HttpStatus.OK);
+		return new ResponseEntity<>( HttpStatus.OK);
 		
 	}
 	
@@ -55,7 +55,7 @@ public class AuthController {
 	@PostMapping("/logout")
 	public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
 		refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
-		return new ResponseEntity<String>("Refresh token deleted successfuly", HttpStatus.OK);
+		return new ResponseEntity<>("Refresh token deleted successfuly", HttpStatus.OK);
 		
 	}
 

@@ -1,6 +1,5 @@
 package com.Redit.clone.Dto;
 
-import com.Redit.clone.Model.Post;
 import com.Redit.clone.Model.VoteType;
 
 import lombok.AllArgsConstructor;

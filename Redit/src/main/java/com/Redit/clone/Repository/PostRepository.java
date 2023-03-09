@@ -11,6 +11,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	
 	public List<Post> findBySuberedditId(Long id);
 	public List<Post> findByUserUserName(String name);
+	public Post findByImageName(String imagename);
 	List<Post> findAllByOrderByCreatedDateDesc();
 
 

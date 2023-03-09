@@ -1,18 +1,23 @@
 package com.Redit.clone.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.Redit.clone.Dto.PostDto;
+import com.Redit.clone.Dto.SuberedditDto;
+import com.Redit.clone.Dto.UserDto;
 import com.Redit.clone.Model.Post;
 import com.Redit.clone.Repository.PostRepository;
 import com.Redit.clone.Service.PostService;
@@ -27,8 +32,19 @@ PostService postService;
 PostRepository postRepository;
 	
 @PostMapping()
-public ResponseEntity<Object> addPost(@RequestBody PostDto postDto) {
-	PostDto addedPost=postService.createPost(postDto);
+public ResponseEntity<Object> addPost(@RequestParam String posteName , @RequestParam String url,@RequestParam String description, @RequestParam Long suberedditId, @RequestParam String userName, @RequestParam(required=false) MultipartFile file) throws IllegalStateException, IOException {
+	SuberedditDto sub = new SuberedditDto();
+	UserDto user = new UserDto();
+	user.setUserName(userName); 
+	PostDto postDto = new PostDto();
+	postDto.setPosteName(posteName);
+	postDto.setUrl(url);
+	postDto.setDescription(description);
+	sub.setId(suberedditId);
+	postDto.setSubereddit(sub);
+	postDto.setUser(user);
+	
+	PostDto addedPost=postService.createPost(postDto,file);
 	if(addedPost==null) {
 		return new ResponseEntity<>("une errur saret ", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -77,6 +93,15 @@ public List<Post> get(){
 	return postRepository.findByUserNameAndPosteNameAndVoteCount("TALAN", "guit");
 	
 }
+
+@GetMapping("image/{fileName}")
+public ResponseEntity<Object> downloadImage (@PathVariable String fileName) throws IOException{
+byte[] imageData = postService.downloadImage(fileName);
+return ResponseEntity.status(HttpStatus.OK)
+.contentType(MediaType.valueOf("image/png"))
+.body(imageData) ;
+}
+
 
 
 

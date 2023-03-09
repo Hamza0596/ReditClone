@@ -1,5 +1,6 @@
 package com.Redit.clone.Model;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 
@@ -23,14 +24,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Subereddit {
-   @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Subereddit implements Serializable {
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+@Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String description;
 	@OneToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
 	private List <Post>Posts ;
-	private Instant createdDate=Instant.now();
+	private Instant createdDate;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="userId", referencedColumnName = "id")
     private User user;

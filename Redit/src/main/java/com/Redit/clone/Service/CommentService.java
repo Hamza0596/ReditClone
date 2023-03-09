@@ -2,10 +2,8 @@ package com.Redit.clone.Service;
 
 import java.util.List;
 
-import org.springframework.util.MultiValueMap;
 
 import com.Redit.clone.Dto.CommentDto;
-import com.Redit.clone.Dto.UserDto;
 
 
 public interface CommentService {

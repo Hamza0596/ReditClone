@@ -1,5 +1,6 @@
 package com.Redit.clone.Model;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Column;
@@ -20,8 +21,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Table(name="Users")
-public class User {
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public User(Long id, String userName, String password) {
 		super();
 		this.id = id;

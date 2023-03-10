@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,12 +73,13 @@ public class PostServiceImpl implements PostService{
 		return ModelMapperConverter.map(postRepository.findById(id), PostDto.class);
 	}
 
+	
 	@Override
-	public List<PostDto> getAllPost() {
-		List<Post> posts= postRepository.findAllByOrderByCreatedDateDesc();
+	public Page<PostDto> getAllPost(int page) {
+		Page<Post> posts= postRepository.findAllByOrderByCreatedDateDesc(PageRequest.of(page, 7, Sort.by("createdDate").descending()));
 		posts.stream().forEach(x->x.setCommentCount(commentRepository.countByPostPostId(x.getPostId())));
 		
-		return ModelMapperConverter.mapAll(posts, PostDto.class);
+		return posts.map(entity -> ModelMapperConverter.map(entity, PostDto.class)); 
 	}
 
 	@Override

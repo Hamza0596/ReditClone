@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.data.domain.Page;
+
+import com.Redit.clone.Dto.PostDto;
 
 public class ModelMapperConverter {
 private static final ModelMapper modelMapper;
@@ -54,7 +57,7 @@ private static final ModelMapper modelMapper;
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
         return entityList.stream()
                 .map(entity -> map(entity, outCLass))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**

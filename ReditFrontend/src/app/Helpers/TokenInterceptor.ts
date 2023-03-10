@@ -23,7 +23,7 @@ export class TokenInterceptor implements HttpInterceptor{
         return httpHandler.handle(httpRequest);
       }
 
-      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post`)&&(httpRequest.method.toUpperCase()==='GET')) {
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post/all/**`)&&(httpRequest.method.toUpperCase()==='GET')) {
         return httpHandler.handle(httpRequest);
       }
       

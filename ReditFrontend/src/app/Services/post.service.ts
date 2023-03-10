@@ -11,8 +11,8 @@ export class PostService {
 
   constructor(private httpClient : HttpClient) { }
 
-  getAllPosts(): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/post`);
+  getAllPosts(page : number): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/post/all/${page}`);
   }
 
 

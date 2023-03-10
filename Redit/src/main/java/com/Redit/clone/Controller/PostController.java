@@ -60,12 +60,12 @@ public ResponseEntity<Object> getPostById(@PathVariable Long id)   {
 }
 
 
-@GetMapping()
-public ResponseEntity<Object> getAllPost(){
-	if(postService.getAllPost().isEmpty()) {
+@GetMapping("all/{page}")
+public ResponseEntity<Object> getAllPost(@PathVariable int page){
+	if(postService.getAllPost(page).isEmpty()) {
 		return new ResponseEntity<Object>("il ya pas de posts", HttpStatus.ACCEPTED);
 	}
-	return new ResponseEntity<Object>(postService.getAllPost(), HttpStatus.ACCEPTED);
+	return new ResponseEntity<Object>(postService.getAllPost(page), HttpStatus.ACCEPTED);
 	
 }
 

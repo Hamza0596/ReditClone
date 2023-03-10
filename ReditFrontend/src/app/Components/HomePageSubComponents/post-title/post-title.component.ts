@@ -16,9 +16,13 @@ export class PostTitleComponent implements OnInit {
   faComments=faComments;
   upvoteColor!: string;
   downvoteColor!: string;
+  actualPageNumber:number=0;
 
   @Input()
   posts!: any[];
+  pageNumber!:number;
+   indexTable: number[] = new Array(0);
+
 
   posts$: Array<any> = [];
 
@@ -27,16 +31,37 @@ export class PostTitleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.postService.getAllPosts().subscribe(data=>{
+    this.postService.getAllPosts(0).subscribe(data=>{
       console.log(data)
-      this.posts$=data;
+      this.posts$=data.content;
+      this.pageNumber=data.totalPages;
+      console.log(this.pageNumber);
+      this.indexTable.length=this.pageNumber;
+      
 
     })
+    
   }
 
 
   goToPostDetails(id:number){
     this.router.navigate([`/viewPost`, id])
+  }
+
+  getPostsByPage( page:number){
+    this.postService.getAllPosts(page).subscribe(data=>{
+      this.posts$=data.content;
+      this.actualPageNumber=data.pageable.pageNumber;
+
+      
+
+    })
+
+  }
+
+  scrollToTop() {
+    document.documentElement.scrollTop = 0;
+    
   }
 
 }

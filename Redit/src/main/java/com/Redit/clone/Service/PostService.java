@@ -15,6 +15,7 @@ public interface PostService {
 	public List<PostDto> getBySubberEditId(Long id);
 	public List<PostDto> getByUserName(String name);
 	public byte[] downloadImage(String fileName) throws IOException;
+	public Page<PostDto> searchPosts(int page, String query);
 
 
 }

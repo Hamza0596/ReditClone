@@ -1,4 +1,9 @@
 <div>
+  <div class="input-group mb-3">
+    <span class="input-group-text col-md-1" id="basic-addon1">@</span>
+    <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="filterValue"
+   (input)="searchPosts( 0)">
+  </div>
 <div class="row post" *ngFor="let post of posts$">
     <!-- Section to Display Votes-->
     <div class="col-md-1">

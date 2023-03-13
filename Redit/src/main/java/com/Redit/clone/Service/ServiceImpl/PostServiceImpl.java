@@ -101,4 +101,13 @@ public class PostServiceImpl implements PostService{
 		return image;
 	}
 
+
+
+
+	@Override
+	public Page<PostDto> searchPosts(int page, String query) {
+		Page<Post> posts = postRepository.findByUserNameAndPosteNameAndDescription(query,PageRequest.of(0, 7));
+		return posts.map(entity -> ModelMapperConverter.map(entity, PostDto.class));
+	}
+
 }

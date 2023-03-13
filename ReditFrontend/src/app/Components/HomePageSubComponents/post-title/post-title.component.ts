@@ -4,6 +4,7 @@ import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-ic
 import { PostService } from 'src/app/Services/post.service';
 
 
+
 @Component({
   selector: 'app-post-title',
   templateUrl: './post-title.component.html',
@@ -17,14 +18,14 @@ export class PostTitleComponent implements OnInit {
   upvoteColor!: string;
   downvoteColor!: string;
   actualPageNumber:number=0;
+  pageNumber!:number;
+  indexTable: number[] = new Array(0);
+  posts$: Array<any> = [];
+  filterValue!:string;
 
   @Input()
   posts!: any[];
-  pageNumber!:number;
-   indexTable: number[] = new Array(0);
-
-
-  posts$: Array<any> = [];
+  
 
 
   constructor(private postService :PostService,private router : Router) { }
@@ -52,9 +53,6 @@ export class PostTitleComponent implements OnInit {
     this.postService.getAllPosts(page).subscribe(data=>{
       this.posts$=data.content;
       this.actualPageNumber=data.pageable.pageNumber;
-
-      
-
     })
 
   }
@@ -63,5 +61,19 @@ export class PostTitleComponent implements OnInit {
     document.documentElement.scrollTop = 0;
     
   }
+
+  searchPosts( page:number){
+   if(this.filterValue){
+    this.postService.searchPosts(this.filterValue,page).subscribe(data=>{
+      this.posts$=data.content;
+    })
+   }
+   else{
+    this.getPostsByPage(0);
+   }
+   
+
+  }
+
 
 }

@@ -29,4 +29,9 @@ return this.httpClient.post(`${this.apiUrl}/post`,post)
   getAllPostsByUser(userName:String):Observable<any[]>{
     return this.httpClient.get<any[]>(`${this.apiUrl}/post/byUserName/${userName}`)
   }
+
+  searchPosts(query :String  , page :number): Observable<any>{
+    return this.httpClient.get(`${this.apiUrl}/post/search/${query}/${page}`);
+
+  }
 }

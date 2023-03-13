@@ -21,6 +21,9 @@ import { ListsubredditsComponent } from './Components/listsubreddits/listsubredd
 import { AuthInterceptor } from './Helpers/auth.interceptor';
 import { ViewPostComponent } from './Components/view-post/view-post.component';
 import { UserProfileComponent } from './Components/auth/user-profile/user-profile.component';
+import { FormsModule } from '@angular/forms';
+import { AccountVlidationComponent } from './Components/auth/account-vlidation/account-vlidation.component';
+
 
 
 
@@ -42,6 +45,8 @@ import { UserProfileComponent } from './Components/auth/user-profile/user-profil
     ListsubredditsComponent,
     ViewPostComponent,
     UserProfileComponent,
+    AccountVlidationComponent,
+    
     
     
   ],
@@ -51,6 +56,7 @@ import { UserProfileComponent } from './Components/auth/user-profile/user-profil
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
+    FormsModule
     
    
   

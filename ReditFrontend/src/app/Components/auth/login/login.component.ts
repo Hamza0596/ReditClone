@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginrequestpayload!:Loginrequestpayload;
   loginResponse!: LoginResponse;
   isError:boolean=false;
+  mailMessage!:string;
 
   ngOnInit(): void {
     this.loginForm=new FormGroup({
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
           icon: 'success',
           title: ' Signup Successful !'
         })
+        this.mailMessage="Signup Successful, please verify your mail adress !"
         
       }
      

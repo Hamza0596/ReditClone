@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -88,9 +89,9 @@ public List<PostDto> getAllPostByUserName(@PathVariable String name){
 }
 
 
-@GetMapping("get")
-public List<Post> get(){
-	return postRepository.findByUserNameAndPosteNameAndVoteCount("TALAN", "guit");
+@GetMapping("search/{query}/{pageNumber}")
+public Page<PostDto> searchFilter(@PathVariable String query  , @PathVariable int pageNumber ){
+	return postService.searchPosts(pageNumber,query);
 	
 }
 

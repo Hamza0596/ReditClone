@@ -67,7 +67,7 @@ public class authServiceImpl implements authService{
   				userRepo.save(user);
   				String token=generatVerificationToken( user);
   				
-  				mailServiceImpl.sendMail(new NotificationEmail("Please Activate your account",user.getEmail(), "please click to the below url to activate your account: "+"http://localhost:8080/api/auth/accountVerification/"+token));
+  				mailServiceImpl.sendMail(new NotificationEmail("Please Activate your account",user.getEmail(), "please click to the below url to activate your account: "+"http://localhost:4200/accountValidation/"+token));
   				
       }
       else {

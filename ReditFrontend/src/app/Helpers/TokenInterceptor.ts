@@ -11,6 +11,7 @@ import { AuthServiceService } from "../Services/auth-service.service";
 export class TokenInterceptor implements HttpInterceptor{
     private isRefreshing = false;
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    page!:number;
   
     constructor(private authenticationService: AuthServiceService) {
     }
@@ -23,7 +24,10 @@ export class TokenInterceptor implements HttpInterceptor{
         return httpHandler.handle(httpRequest);
       }
 
-      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post/all/**`)&&(httpRequest.method.toUpperCase()==='GET')) {
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post/all/`)&&(httpRequest.method.toUpperCase()==='GET')) {
+        return httpHandler.handle(httpRequest);
+      }
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/auth/accountVerification/`)) {
         return httpHandler.handle(httpRequest);
       }
       

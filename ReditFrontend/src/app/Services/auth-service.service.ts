@@ -97,9 +97,10 @@ export class AuthServiceService {
         throwError(error);
       })
     this.storage.clear();
+  }
 
-
-
+  validatAccount(token:string){
+    return this.httpClient.get(`http://localhost:8080/api/auth/accountVerification/${token}`)
   }
 
 }

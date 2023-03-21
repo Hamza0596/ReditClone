@@ -110,4 +110,12 @@ public class PostServiceImpl implements PostService{
 		return posts.map(entity -> ModelMapperConverter.map(entity, PostDto.class));
 	}
 
+
+
+
+	@Override
+	public void deletePostById(Long id) {
+		postRepository.deleteById(id);
+	}
+
 }

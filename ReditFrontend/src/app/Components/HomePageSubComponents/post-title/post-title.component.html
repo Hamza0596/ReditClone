@@ -12,11 +12,18 @@
     </div>
     <!-- Section to Display Post Information-->
     <div class="col-md-11">
-      <span class="subreddit-info">
-        <span class="subreddit-text"><a class="posturl" routerLink="">{{post.subereddit.name}}</a></span>
-        <span> . Posted by <a class="username" routerLink="/user/{{post.userName}}">{{post.user.userName}}</a></span>
-        <span> . {{post.duration}}</span>
-      </span>
+      <div style="display: flex; justify-content: space-between;">
+      <div>
+        <span class="subreddit-info">
+          <span class="subreddit-text"><a class="posturl" routerLink="">{{post.subereddit.name}}</a></span>
+          <span> . Posted by <a class="username" routerLink="/user/{{post.userName}}">{{post.user.userName}}</a></span>
+        </span>
+      </div>
+    <div *ngIf="post.user.userName==connectedUserName">
+      <button type="button" class="btn btn-danger" (click)="deletPost(post.postId)">Delete</button>
+    </div>
+    </div>
+     
       <hr />
       <div class="post-title">
         <a class="postname" href="{{post.url}}">{{post.posteName}}</a>

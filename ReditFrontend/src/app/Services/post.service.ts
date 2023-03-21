@@ -34,4 +34,9 @@ return this.httpClient.post(`${this.apiUrl}/post`,post)
     return this.httpClient.get(`${this.apiUrl}/post/search/${query}/${page}`);
 
   }
+
+  deletePostById(id :number): Observable<any>{
+    return this.httpClient.delete(`${this.apiUrl}/post/${id}`);
+
+  }
 }

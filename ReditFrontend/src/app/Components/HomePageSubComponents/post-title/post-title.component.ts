@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-icons';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { PostService } from 'src/app/Services/post.service';
 
 
@@ -22,15 +23,17 @@ export class PostTitleComponent implements OnInit {
   indexTable: number[] = new Array(0);
   posts$: Array<any> = [];
   filterValue!:string;
+  connectedUserName!:String;
 
   @Input()
   posts!: any[];
   
 
 
-  constructor(private postService :PostService,private router : Router) { }
+  constructor(private postService :PostService,private router : Router , @Inject(LOCAL_STORAGE) private storage: StorageService) { }
 
   ngOnInit(): void {
+    this.connectedUserName=this.storage.get('username')
 
     this.postService.getAllPosts(0).subscribe(data=>{
       console.log(data)
@@ -73,6 +76,12 @@ export class PostTitleComponent implements OnInit {
    }
    
 
+  }
+  deletPost(id:number){
+    this.postService.deletePostById(id).subscribe(data=>{
+      this.getPostsByPage(0);
+
+    })
   }
 
 

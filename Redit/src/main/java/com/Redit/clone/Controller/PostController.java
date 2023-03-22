@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.Redit.clone.Dto.PostDto;
 import com.Redit.clone.Dto.SuberedditDto;
 import com.Redit.clone.Dto.UserDto;
-import com.Redit.clone.Model.Post;
 import com.Redit.clone.Repository.PostRepository;
 import com.Redit.clone.Service.PostService;
 

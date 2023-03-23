@@ -34,6 +34,9 @@ export class TokenInterceptor implements HttpInterceptor{
       if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/suberedit`)&&(httpRequest.method.toUpperCase()==='GET')) {
         return httpHandler.handle(httpRequest);
       }
+      if (httpRequest.url.includes(`${this.authenticationService.apiUrl}/post/search/`)&&(httpRequest.method.toUpperCase()==='GET')) {
+        return httpHandler.handle(httpRequest);
+      }
 
 
       this.authenticationService.refreshToken();
